@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Quanthacks · settlement replay</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><div class="brand-mark">Q</div><div><strong>QUANTHACKS</strong><small>SETTLEMENT REPLAY</small></div></div>
+    <div class="top-meta"><span class="live-dot"></span><span>FROZEN EVIDENCE</span><span class="version" id="version">replay</span></div>
+  </header>
+  <main>
+    <section class="toolbar">
+      <div><label for="scenario">SCENARIO</label><select id="scenario"></select></div>
+      <div class="run-label"><span class="eyebrow">RUN MODE</span><b id="runMode">—</b></div>
+      <div class="run-label"><span class="eyebrow">RUN ID</span><b id="runId">—</b></div>
+      <div class="run-label"><span class="eyebrow">STATUS</span><b id="runStatus" class="status">—</b></div>
+      <div class="toolbar-note">Descriptive replay · browser does not calculate financial outcomes</div>
+    </section>
+
+    <section class="workspace">
+      <article class="panel universe-panel">
+        <div class="panel-head"><div><span class="eyebrow">FROZEN KEPLER SCENE</span><h1>Network at a glance</h1></div><div class="legend"><span><i class="candidate"></i>candidate link</span><span><i class="blocked"></i>sampled closed/fault</span><span><i class="route"></i>session route</span><span><i class="photon"></i>in-flight packet</span></div></div>
+        <div class="scene-wrap"><canvas id="scene" aria-label="Solar system replay scene"></canvas><div class="scene-label">XY PROJECTION · LOG-COMPRESSED AU · ORBITAL PLANE</div><div class="scene-hud"><span id="clockReadout">t = 0 h</span><span id="activeReadout">0 live sessions · 0 photons</span><span id="closureReadout">Python sample · —</span></div></div>
+        <div id="closureDetails" class="state-box closure-details"></div>
+        <p class="view-caption">Map, closure samples and route probes are observer diagnostics. Actor lens filters the ledger, received events and prices.</p>
+        <div class="transport">
+          <div class="buttons"><button id="play" class="primary" aria-label="Play">▶</button><button id="back" aria-label="Previous event">|◀</button><button id="next" aria-label="Next event">▶|</button><select id="speed" aria-label="Playback speed"><option value="1">1×</option><option value="4">4×</option><option value="16">16×</option><option value="64">64×</option></select></div>
+          <input id="scrub" type="range" min="0" max="1000" value="0" aria-label="Replay timeline">
+          <div class="range-labels"><span id="rangeStart">—</span><span id="rangeEnd">—</span></div>
+        </div>
+        <div class="subhead"><div><span class="eyebrow">EVENT INSPECTOR</span><h2>Recorded events</h2></div><input id="eventSearch" placeholder="Filter events" aria-label="Filter events"></div>
+        <div class="events" id="events"></div>
+      </article>
+
+      <aside class="side-stack">
+        <article class="panel balance-panel">
+          <div class="panel-head"><div><span class="eyebrow">CAPITAL & STATE</span><h2>Ledger snapshot</h2></div><div class="toggle" role="group" aria-label="State view"><button class="selected" data-mode="observer">Observer</button><button data-mode="actor">Actor view</button></div></div>
+          <div class="actor-picker"><label for="actorSelect">ACTOR LENS</label><select id="actorSelect"></select></div>
+          <p class="view-caption" id="viewCaption">Observer global state · measured ledger snapshot</p>
+          <div id="stateView"></div>
+          <div id="capitalBlock"><div class="capital-head"><span>ENCUMBERED CAPITAL</span><span>raw units</span></div>
+          <canvas id="capital" height="88" aria-label="Encumbered capital timeline"></canvas></div>
+          <div class="capital-head final-label"><span>FINAL RUN METRICS</span><span>summary file</span></div><div class="metrics" id="metrics"></div>
+          <div class="capital-head"><span>CURRENT PACKET / QUOTA COUNTERS</span><span>pre-exported trace counts</span></div><div class="metrics" id="currentTelemetry"></div>
+        </article>
+        <article class="panel prices-panel">
+          <div class="panel-head"><div><span class="eyebrow">PRICE OBSERVATIONS</span><h2>Recorded price & milestones</h2></div></div>
+          <div id="prices"></div>
+          <div id="milestones" class="milestones"></div>
+          <div id="recovery" class="state-box"></div>
+        </article>
+        <article class="panel route-panel">
+          <div class="panel-head"><div><span class="eyebrow">MEASURED ROUTES & ACCESS PROBES</span><h2>Recorded path / candidate access</h2></div><select id="accessHour" aria-label="Access probe hour"><option value="0">h0 probes</option><option value="300">h300 probes</option></select></div>
+          <p class="view-caption">Session routes are recorded at creation; access rows are predicted probes, not launched sessions.</p>
+          <div id="recordedRoutes"></div><div id="accessTable"></div>
+        </article>
+        <article class="panel notes-panel">
+          <div class="panel-head"><div><span class="eyebrow">MODEL BOUNDARY</span><h2>Run notes</h2></div></div>
+          <p id="geometryNote"></p><ul id="limitations"></ul>
+        </article>
+      </aside>
+    </section>
+    <footer><span>Measured traces · fixed Kepler elements · local-only viewer</span><span>Cash in minor units · Ares in shares · geometry in AU</span></footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
